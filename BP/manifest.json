@@ -1,0 +1,67 @@
+{
+	"format_version": 2,
+	"metadata": {
+		"authors": [
+			"yetnt"
+		],
+		"generated_with": {
+			"bridge": [
+				"2.7.22"
+			],
+			"dash": [
+				"github:bridge-core/dash-compiler#8fa35c73292f6382747d0f411fca26431a6d2c8e"
+			]
+		}
+	},
+	"header": {
+		"name": "Get Block",
+		"description": "§lGet a block by breaking it. §4Beta Apis has to enabled in Experimental Features for this to work!",
+		"min_engine_version": [
+			1,
+			21,
+			1
+		],
+		"uuid": "989fe185-51cf-485d-8799-9fdc99f7c687",
+		"version": [
+			0,
+			0,
+			1
+		]
+	},
+	"modules": [
+		{
+			"type": "data",
+			"uuid": "686beb6f-be55-4493-a2dc-ea63295a7b35",
+			"version": [
+				1,
+				0,
+				0
+			]
+		},
+		{
+			"type": "script",
+			"language": "javascript",
+			"uuid": "43a4ff57-a787-49cd-a32e-a53f25cf9817",
+			"entry": "scripts/main.js",
+			"version": [
+				1,
+				0,
+				0
+			]
+		}
+	],
+	"dependencies": [
+		{
+			"module_name": "@minecraft/server",
+			"version": "1.0.0-beta"
+		},
+		{
+			"module_name": "@minecraft/server-gametest",
+			"version": "1.0.0-beta"
+		},
+		{
+			"module_name": "@minecraft/server-ui",
+			"version": "1.0.0-beta"
+		}
+	]
+}

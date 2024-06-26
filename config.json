@@ -1,0 +1,43 @@
+{
+	"type": "minecraftBedrock",
+	"name": "Get Block",
+	"namespace": "yetnt",
+	"authors": [
+		"yetnt"
+	],
+	"targetVersion": "1.20.80",
+	"description": "§lGet a block by breaking it. §4Beta Apis has to enabled in Experimental Features for this to work!",
+	"experimentalGameplay": {
+		"holidayCreatorFeatures": false,
+		"creationOfCustomBiomes": false,
+		"upcomingCreatorFeatures": false,
+		"enableGameTestFramework": true,
+		"educationEdition": false
+	},
+	"bdsProject": false,
+	"packs": {
+		"behaviorPack": "./BP"
+	},
+	"worlds": [
+		"./worlds/*"
+	],
+	"compiler": {
+		"plugins": [
+			"generatorScripts",
+			"typeScript",
+			"entityIdentifierAlias",
+			"customEntityComponents",
+			"customItemComponents",
+			"customBlockComponents",
+			"customCommands",
+			"moLang",
+			"formatVersionCorrection",
+			[
+				"simpleRewrite",
+				{
+					"packName": "Get Block"
+				}
+			]
+		]
+	}
+}
