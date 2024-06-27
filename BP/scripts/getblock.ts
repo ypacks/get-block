@@ -8,23 +8,26 @@ import { itemStack } from "./bind";
 
 let event: ((arg: PlayerBreakBlockAfterEvent) => void) | undefined = undefined;
 
-export function start(starterPlayer: Player) {
+export async function start(starterPlayer: Player) {
     if (event) {
         starterPlayer.sendMessage("an item as already been bound!");
         return false;
     }
-    event = world.afterEvents.playerBreakBlock.subscribe((arg) => {
-        console.warn(itemStack.typeId)
-        console.warn(arg.itemStackBeforeBreak?.typeId)
-        if (!(itemStack.typeId == arg.itemStackBeforeBreak?.typeId)) return;
+    event = world.afterEvents.playerBreakBlock.subscribe(async (arg) => {
+        console.warn(itemStack?.typeId);
+        console.warn(arg.itemStackBeforeBreak?.typeId);
+        if (!(itemStack?.typeId == arg.itemStackBeforeBreak?.typeId)) return;
 
         const player = arg.player;
         const block = arg.block;
 
         const { x, y, z } = block.location;
 
-        console.warn(block.typeId)
-        player.runCommand(`setblock ${x} ${y} ${z} ${block.typeId}`);
+        console.warn(block.typeId);
+        await player.runCommandAsync(
+            `setblock ${x} ${y} ${z} minecraft:bedrock`
+        );
+        //player.runCommand(`setblock ${x} ${y} ${z} ${block.typeId}`);
 
         player
             .getComponent("inventory")

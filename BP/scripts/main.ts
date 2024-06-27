@@ -1,7 +1,7 @@
 import { world, system, Block, Player, ItemStack } from "@minecraft/server";
 import { bind, unbind } from "./bind";
 
-world.afterEvents.chatSend.subscribe((arg) => {
+world.afterEvents.chatSend.subscribe(async (arg) => {
     const message = arg.message;
     const player = arg.sender;
 
@@ -15,7 +15,7 @@ world.afterEvents.chatSend.subscribe((arg) => {
             player.sendMessage("Commands: $help");
             break;
         case "bind":
-            const bindOutput = bind(player);
+            const bindOutput = await bind(player);
             if (bindOutput.status) {
                 player.sendMessage("Bound to !");
             } else {
@@ -34,8 +34,8 @@ world.afterEvents.chatSend.subscribe((arg) => {
 
 system.afterEvents.scriptEventReceive.subscribe((arg) => {
     console.warn(arg);
-    console.warn("the fucking id is below you numbskull")
-    console.warn(arg.id)
+    console.warn("the fucking id is below you numbskull");
+    console.warn(arg.id);
     if (arg.id !== "getblock:bind") return;
 
     const msg = arg.message;
@@ -60,9 +60,12 @@ system.afterEvents.scriptEventReceive.subscribe((arg) => {
 
         const block: Block | undefined = player?.getBlockFromViewDirection({
             maxDistance: 40,
+            excludeTypes: ["minecraft:air"],
         })?.block;
 
         console.warn("found block");
+
+        console.log(block?.typeId);
 
         if (!block) return;
 
