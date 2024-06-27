@@ -45,7 +45,8 @@ system.afterEvents.scriptEventReceive.subscribe(async (arg) => {
     }
 
     try {
-        const entity = arg.initiator;
+        console.log(arg.sourceType);
+        const entity = arg.sourceEntity;
         console.warn(entity?.id);
         const players = world.getAllPlayers();
         const player: Player | undefined = players.find(

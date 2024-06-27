@@ -22,10 +22,14 @@ export async function start(starterPlayer: Player) {
         const block = arg.block;
 
         try {
-            await getBlock(player, block);
+            system.run(async () => {
+                await getBlock(player, block);
+            });
         } catch (err) {
             console.error(err);
         }
+
+        arg.cancel = true;
     });
 
     return true;
@@ -55,14 +59,12 @@ export async function getBlock(
 
         console.warn("putting block back");
     }
-    system.run(() => {
-        player
-            ?.getComponent("inventory")
-            ?.container?.setItem(
-                player.selectedSlotIndex,
-                new ItemStack(block.typeId, 1)
-            );
-    });
+    player
+        ?.getComponent("inventory")
+        ?.container?.setItem(
+            player.selectedSlotIndex,
+            new ItemStack(block.typeId, 1)
+        );
     player?.runCommand(
         `title @s actionbar §l${block.getItemStack(1)?.nameTag}`
     );
