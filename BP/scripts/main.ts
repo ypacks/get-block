@@ -33,6 +33,9 @@ world.afterEvents.chatSend.subscribe((arg) => {
 });
 
 system.afterEvents.scriptEventReceive.subscribe((arg) => {
+    console.warn(arg);
+    console.log("the fucking id is below you numbskull")
+    console.warn(arg.id)
     if (arg.id !== "getblock:bind") return;
 
     const msg = arg.message;
