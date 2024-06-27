@@ -12,7 +12,7 @@ let event: ((arg: PlayerBreakBlockBeforeEvent) => void) | undefined = undefined;
 
 export async function start(starterPlayer: Player) {
     if (event) {
-        starterPlayer.sendMessage("an item as already been bound!");
+        starterPlayer.sendMessage("An item as already been binded.");
         return false;
     }
     event = world.beforeEvents.playerBreakBlock.subscribe(async (arg) => {
@@ -39,7 +39,7 @@ export function stop(starterPlayer: Player) {
     if (event) {
         world.beforeEvents.playerBreakBlock.unsubscribe(event);
     } else {
-        starterPlayer.sendMessage("erm there isnt an item.");
+        starterPlayer.sendMessage("erm air isnt an item.");
         return;
     }
 }
@@ -65,5 +65,5 @@ export async function getBlock(
             player.selectedSlotIndex,
             new ItemStack(block.typeId, 1)
         );
-    player?.runCommand(`title @s actionbar §l${block.type}`);
+    player?.runCommand(`title @s actionbar §l${block.type.id}}`);
 }

@@ -28,6 +28,11 @@ export async function bind(player: Player) {
 }
 
 export function unbind(player: Player) {
+    if (!itemStack) {
+        player.sendMessage("No item bind found.");
+        return;
+    }
     itemStack = undefined;
     stop(player);
+    player.sendMessage("Unbound.");
 }
