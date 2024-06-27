@@ -26,10 +26,6 @@ export async function start(starterPlayer: Player) {
         } catch (err) {
             console.error(err);
         }
-
-        await system.waitTicks(2);
-
-        await (arg.cancel = true);
     });
 
     return true;

@@ -46,6 +46,7 @@ system.afterEvents.scriptEventReceive.subscribe(async (arg) => {
 
     try {
         const entity = arg.initiator;
+        console.warn(entity?.id);
         const players = world.getAllPlayers();
         const player: Player | undefined = players.find(
             (player) => player.id === entity?.id
@@ -75,7 +76,7 @@ system.afterEvents.scriptEventReceive.subscribe(async (arg) => {
         if (!block) return;
 
         try {
-            await getBlock(player, block, true);
+            await getBlock(player, block);
         } catch (err) {
             console.error(err);
         }
