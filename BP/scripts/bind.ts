@@ -11,6 +11,7 @@ export function bind(player: Player) {
         const item = player
             .getComponent("inventory")
             ?.container?.getItem(player.selectedSlotIndex);
+        console.log(item?.typeId);
         if (item?.typeId) {
             itemStack = item;
             return { status: start(player), error: "Eror in main code." };
