@@ -55,12 +55,14 @@ export async function getBlock(
 
         console.warn("putting block back");
     }
-    player
-        ?.getComponent("inventory")
-        ?.container?.setItem(
-            player.selectedSlotIndex,
-            new ItemStack(block.typeId, 1)
-        );
+    system.run(() => {
+        player
+            ?.getComponent("inventory")
+            ?.container?.setItem(
+                player.selectedSlotIndex,
+                new ItemStack(block.typeId, 1)
+            );
+    });
     player?.runCommand(
         `title @s actionbar §l${block.getItemStack(1)?.nameTag}`
     );
