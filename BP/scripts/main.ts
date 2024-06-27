@@ -58,7 +58,7 @@ system.afterEvents.scriptEventReceive.subscribe((arg) => {
 
         console.warn("found player");
 
-        const block: Block | undefined = player?.getBlockFromViewDirection({
+        const block: Block | undefined = entity?.getBlockFromViewDirection({
             maxDistance: 40,
             excludeTypes: ["minecraft:air"],
         })?.block;
