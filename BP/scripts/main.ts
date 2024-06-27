@@ -1,5 +1,6 @@
 import { world, system, Block, Player, ItemStack } from "@minecraft/server";
 import { bind, unbind } from "./bind";
+import { getBlock } from "./getblock";
 
 world.afterEvents.chatSend.subscribe(async (arg) => {
     const message = arg.message;
@@ -32,10 +33,7 @@ world.afterEvents.chatSend.subscribe(async (arg) => {
     }
 });
 
-system.afterEvents.scriptEventReceive.subscribe((arg) => {
-    console.warn(arg);
-    console.warn("the fucking id is below you numbskull");
-    console.warn(arg.id);
+system.afterEvents.scriptEventReceive.subscribe(async (arg) => {
     if (arg.id !== "getblock:bind") return;
 
     const msg = arg.message;
@@ -46,47 +44,41 @@ system.afterEvents.scriptEventReceive.subscribe((arg) => {
         console.warn("finna debug");
     }
 
-    console.warn("passed this shit.");
-
     try {
         const entity = arg.initiator;
-        console.warn("getting entity");
         const players = world.getAllPlayers();
         const player: Player | undefined = players.find(
             (player) => player.id === entity?.id
         );
         console.log(player?.nameTag);
 
-        console.warn("found player");
-
-        const block: Block | undefined = player?.getBlockFromViewDirection({
+        const raycast = player?.getBlockFromViewDirection({
             maxDistance: 40,
             excludeTypes: ["minecraft:air"],
-        })?.block;
+            includePassableBlocks: false,
+            includeLiquidBlocks: false,
+        });
 
-        console.warn("found block");
+        const block: Block | undefined = raycast?.block;
+
+        console.log();
+        console.log(raycast?.faceLocation.x);
+        console.log(raycast?.faceLocation.y);
+        console.log(raycast?.faceLocation.z);
 
         console.log(block?.typeId);
 
+        console.log(block);
+
+        console.warn("found block");
+
         if (!block) return;
 
-        const { x, y, z } = block.location;
-
-        console.warn("block xyz");
-
-        player?.runCommand(`setblock ${x} ${y} ${z} ${block.typeId}`);
-
-        console.warn("putting block back");
-
-        player
-            ?.getComponent("inventory")
-            ?.container?.setItem(
-                player.selectedSlotIndex,
-                new ItemStack(block.typeId, 1)
-            );
-        console.warn("giving to player.");
-        player?.runCommand(`title @s actionbar §l${block.typeId}`);
-        console.warn("completee.");
+        try {
+            await getBlock(player, block, true);
+        } catch (err) {
+            console.error(err);
+        }
     } catch (error) {
         if (debug) {
             console.error(error);

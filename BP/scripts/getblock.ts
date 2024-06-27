@@ -2,6 +2,7 @@ import {
     world,
     ItemStack,
     Player,
+    Block,
     PlayerBreakBlockBeforeEvent,
 } from "@minecraft/server";
 import { itemStack } from "./bind";
@@ -16,25 +17,16 @@ export async function start(starterPlayer: Player) {
     event = world.beforeEvents.playerBreakBlock.subscribe(async (arg) => {
         if (!(itemStack?.typeId == arg.itemStack?.typeId)) return;
 
-        arg.cancel = true;
-
         const player = arg.player;
         const block = arg.block;
 
-        // const { x, y, z } = block.location;
+        try {
+            await getBlock(player, block);
+        } catch (err) {
+            console.error(err);
+        }
 
-        // await player.runCommandAsync(`setblock ${x} ${y} ${z} ${block.typeId}`);
-
-        player
-            .getComponent("inventory")
-            ?.container?.setItem(
-                player.selectedSlotIndex,
-                new ItemStack(block.typeId, 1)
-            );
-
-        player.runCommand(
-            `title @s actionbar §l${block.getItemStack(1)?.nameTag}`
-        );
+        arg.cancel = true;
     });
 
     return true;
@@ -47,4 +39,30 @@ export function stop(starterPlayer: Player) {
         starterPlayer.sendMessage("erm there isnt an item.");
         return;
     }
+}
+
+export async function getBlock(
+    player: Player | undefined,
+    block: Block,
+    placeBack: boolean = false
+) {
+    if (!player) return;
+    if (placeBack) {
+        const { x, y, z } = block.location;
+
+        console.warn("block xyz");
+
+        player?.runCommand(`setblock ${x} ${y} ${z} ${block.typeId}`);
+
+        console.warn("putting block back");
+    }
+    player
+        ?.getComponent("inventory")
+        ?.container?.setItem(
+            player.selectedSlotIndex,
+            new ItemStack(block.typeId, 1)
+        );
+    player?.runCommand(
+        `title @s actionbar §l${block.getItemStack(1)?.nameTag}`
+    );
 }
