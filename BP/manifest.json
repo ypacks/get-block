@@ -14,7 +14,7 @@
         }
     },
     "header": {
-        "name": "§lget block §o§av0.1.1",
+        "name": "§lget block §o§av1.0.0",
         "description": "§lGet the block you are looking at! §4Beta Apis has to enabled in Experimental Features for this to work!",
         "min_engine_version": [
             1,
@@ -23,9 +23,9 @@
         ],
         "uuid": "989fe185-51cf-485d-8799-9fdc99f7c687",
         "version": [
-            0,
             1,
-            1
+            0,
+            0
         ]
     },
     "modules": [
