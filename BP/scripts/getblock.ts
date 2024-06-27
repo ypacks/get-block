@@ -3,6 +3,7 @@ import {
     ItemStack,
     Player,
     Block,
+    system,
     PlayerBreakBlockBeforeEvent,
 } from "@minecraft/server";
 import { itemStack } from "./bind";
@@ -26,7 +27,9 @@ export async function start(starterPlayer: Player) {
             console.error(err);
         }
 
-        arg.cancel = true;
+        await system.waitTicks(2);
+
+        await (arg.cancel = true);
     });
 
     return true;
