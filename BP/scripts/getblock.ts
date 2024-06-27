@@ -16,12 +16,14 @@ export async function start(starterPlayer: Player) {
     event = world.beforeEvents.playerBreakBlock.subscribe(async (arg) => {
         if (!(itemStack?.typeId == arg.itemStack?.typeId)) return;
 
+        arg.cancel = true;
+
         const player = arg.player;
         const block = arg.block;
 
-        const { x, y, z } = block.location;
+        // const { x, y, z } = block.location;
 
-        await player.runCommandAsync(`setblock ${x} ${y} ${z} ${block.typeId}`);
+        // await player.runCommandAsync(`setblock ${x} ${y} ${z} ${block.typeId}`);
 
         player
             .getComponent("inventory")
@@ -30,7 +32,9 @@ export async function start(starterPlayer: Player) {
                 new ItemStack(block.typeId, 1)
             );
 
-        player.runCommand(`title @s actionbar §l${block.typeId}`);
+        player.runCommand(
+            `title @s actionbar §l${block.getItemStack(1)?.nameTag}`
+        );
     });
 
     return true;

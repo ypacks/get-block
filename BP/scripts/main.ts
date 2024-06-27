@@ -55,10 +55,11 @@ system.afterEvents.scriptEventReceive.subscribe((arg) => {
         const player: Player | undefined = players.find(
             (player) => player.id === entity?.id
         );
+        console.log(player?.nameTag);
 
         console.warn("found player");
 
-        const block: Block | undefined = entity?.getBlockFromViewDirection({
+        const block: Block | undefined = player?.getBlockFromViewDirection({
             maxDistance: 40,
             excludeTypes: ["minecraft:air"],
         })?.block;
