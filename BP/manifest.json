@@ -14,7 +14,7 @@
         }
     },
     "header": {
-        "name": "Get Block v0.1.0",
+        "name": "§lget block §o§av0.1.1",
         "description": "§lGet the block you are looking at! §4Beta Apis has to enabled in Experimental Features for this to work!",
         "min_engine_version": [
             1,
@@ -25,7 +25,7 @@
         "version": [
             0,
             1,
-            0
+            1
         ]
     },
     "modules": [
