@@ -14,7 +14,7 @@
         }
     },
     "header": {
-        "name": "Get Block v0.0.4",
+        "name": "Get Block v0.0.5",
         "description": "§lGet a block by breaking it. §4Beta Apis has to enabled in Experimental Features for this to work!",
         "min_engine_version": [
             1,
@@ -25,7 +25,7 @@
         "version": [
             0,
             0,
-            4
+            5
         ]
     },
     "modules": [

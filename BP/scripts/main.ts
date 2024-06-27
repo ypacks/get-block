@@ -34,7 +34,7 @@ world.afterEvents.chatSend.subscribe((arg) => {
 
 system.afterEvents.scriptEventReceive.subscribe((arg) => {
     console.warn(arg);
-    console.log("the fucking id is below you numbskull")
+    console.warn("the fucking id is below you numbskull")
     console.warn(arg.id)
     if (arg.id !== "getblock:bind") return;
 
@@ -43,36 +43,36 @@ system.afterEvents.scriptEventReceive.subscribe((arg) => {
 
     if (msg === "true" || msg === "false") {
         debug = JSON.parse(msg); // hopefully a boolean value
-        console.log("finna debug");
+        console.warn("finna debug");
     }
 
-    console.log("passed this shit.");
+    console.warn("passed this shit.");
 
     try {
         const entity = arg.initiator;
-        console.log("getting entity");
+        console.warn("getting entity");
         const players = world.getAllPlayers();
         const player: Player | undefined = players.find(
             (player) => player.id === entity?.id
         );
 
-        console.log("found player");
+        console.warn("found player");
 
         const block: Block | undefined = player?.getBlockFromViewDirection({
             maxDistance: 40,
         })?.block;
 
-        console.log("found block");
+        console.warn("found block");
 
         if (!block) return;
 
         const { x, y, z } = block.location;
 
-        console.log("block xyz");
+        console.warn("block xyz");
 
         player?.runCommand(`setblock ${x} ${y} ${z} ${block.typeId}`);
 
-        console.log("putting block back");
+        console.warn("putting block back");
 
         player
             ?.getComponent("inventory")
@@ -80,9 +80,9 @@ system.afterEvents.scriptEventReceive.subscribe((arg) => {
                 player.selectedSlotIndex,
                 new ItemStack(block.typeId, 1)
             );
-        console.log("giving to player.");
+        console.warn("giving to player.");
         player?.runCommand(`title @s actionbar §l${block.typeId}`);
-        console.log("completee.");
+        console.warn("completee.");
     } catch (error) {
         if (debug) {
             console.error(error);

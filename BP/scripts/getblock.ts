@@ -14,6 +14,8 @@ export function start(starterPlayer: Player) {
         return false;
     }
     event = world.afterEvents.playerBreakBlock.subscribe((arg) => {
+        console.warn(itemStack.typeId)
+        console.warn(arg.itemStackBeforeBreak?.typeId)
         if (!(itemStack.typeId == arg.itemStackBeforeBreak?.typeId)) return;
 
         const player = arg.player;
@@ -21,6 +23,7 @@ export function start(starterPlayer: Player) {
 
         const { x, y, z } = block.location;
 
+        console.warn(block.typeId)
         player.runCommand(`setblock ${x} ${y} ${z} ${block.typeId}`);
 
         player
@@ -29,7 +32,10 @@ export function start(starterPlayer: Player) {
                 player.selectedSlotIndex,
                 new ItemStack(block.typeId, 1)
             );
+
+        player.runCommand(`title @s actionbar §l${block.typeId}`);
     });
+
     return true;
 }
 
