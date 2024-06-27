@@ -1,5 +1,5 @@
 import { world } from "@minecraft/server";
-import { bind } from "./bind";
+import { bind, unbind } from "./bind";
 
 world.afterEvents.chatSend.subscribe((arg) => {
     const message = arg.message;
@@ -17,11 +17,15 @@ world.afterEvents.chatSend.subscribe((arg) => {
         case "bind":
             const bindOutput = bind(player);
             if (bindOutput.status) {
-                player.sendMessage("Bound!");
+                player.sendMessage("Bound to !");
             } else {
                 player.sendMessage("Bind failed!");
                 console.error(bindOutput.error);
             }
+            break;
+        case "unbind":
+            unbind(player);
+            break;
         default:
             console.warn("Unknown command: $" + command);
             break;

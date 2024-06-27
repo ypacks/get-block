@@ -1,6 +1,7 @@
-import { world, Player } from "@minecraft/server";
+import { world, Player, ItemStack } from "@minecraft/server";
+import { start, stop } from "./getblock";
 
-export let id: string = "";
+export let itemStack: ItemStack;
 
 /**
  * Returns bool, if true then success.
@@ -11,7 +12,8 @@ export function bind(player: Player) {
             .getComponent("inventory")
             ?.container?.getItem(player.selectedSlotIndex);
         if (item?.typeId) {
-            id = item.typeId;
+            itemStack = item;
+            start(player);
             return { status: true };
         } else {
             return { status: false, error: "Item has no id?" };
@@ -19,4 +21,8 @@ export function bind(player: Player) {
     } catch (error) {
         return { status: false, error };
     }
+}
+
+export function unbind(player: Player) {
+    stop(player);
 }
