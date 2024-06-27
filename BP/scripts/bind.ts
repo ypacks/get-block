@@ -14,7 +14,11 @@ export async function bind(player: Player) {
         console.log(item?.typeId);
         if (item?.typeId) {
             itemStack = item;
-            return { status: await start(player), error: "Eror in main code." };
+            return {
+                status: await start(player),
+                error: "Eror in main code.",
+                itemStack: item,
+            };
         } else {
             return { status: false, error: "Item has no id?" };
         }

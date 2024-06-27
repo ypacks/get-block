@@ -65,7 +65,5 @@ export async function getBlock(
             player.selectedSlotIndex,
             new ItemStack(block.typeId, 1)
         );
-    player?.runCommand(
-        `title @s actionbar §l${block.getItemStack(1)?.nameTag}`
-    );
+    player?.runCommand(`title @s actionbar §l${block.type}`);
 }
