@@ -6,12 +6,12 @@ import {
 } from "@minecraft/server";
 import { itemStack } from "./bind";
 
-let event: (arg: PlayerBreakBlockAfterEvent) => void;
+let event: ((arg: PlayerBreakBlockAfterEvent) => void) | undefined = undefined;
 
 export function start(starterPlayer: Player) {
-    if (!event) {
+    if (event) {
         starterPlayer.sendMessage("an item as already been bound!");
-        return;
+        return false;
     }
     event = world.afterEvents.playerBreakBlock.subscribe((arg) => {
         if (!(itemStack.typeId == arg.itemStackBeforeBreak?.typeId)) return;
@@ -30,6 +30,7 @@ export function start(starterPlayer: Player) {
                 new ItemStack(block.typeId, 1)
             );
     });
+    return true;
 }
 
 export function stop(starterPlayer: Player) {

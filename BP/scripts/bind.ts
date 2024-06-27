@@ -13,8 +13,7 @@ export function bind(player: Player) {
             ?.container?.getItem(player.selectedSlotIndex);
         if (item?.typeId) {
             itemStack = item;
-            start(player);
-            return { status: true };
+            return { status: start(player), error: "Eror in main code." };
         } else {
             return { status: false, error: "Item has no id?" };
         }
