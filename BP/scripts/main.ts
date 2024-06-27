@@ -50,10 +50,10 @@ system.afterEvents.scriptEventReceive.subscribe(async (arg) => {
         const player: Player | undefined = players.find(
             (player) => player.id === entity?.id
         );
-        console.log(player?.nameTag);
+        console.warn(player?.nameTag);
 
-        const raycast = player?.getBlockFromViewDirection({
-            maxDistance: 40,
+        const raycast = entity?.getBlockFromViewDirection({
+            maxDistance: 10,
             excludeTypes: ["minecraft:air"],
             includePassableBlocks: false,
             includeLiquidBlocks: false,
@@ -61,14 +61,14 @@ system.afterEvents.scriptEventReceive.subscribe(async (arg) => {
 
         const block: Block | undefined = raycast?.block;
 
-        console.log();
-        console.log(raycast?.faceLocation.x);
-        console.log(raycast?.faceLocation.y);
-        console.log(raycast?.faceLocation.z);
+        console.warn();
+        console.warn(raycast?.faceLocation.x);
+        console.warn(raycast?.faceLocation.y);
+        console.warn(raycast?.faceLocation.z);
 
-        console.log(block?.typeId);
+        console.warn(block?.typeId);
 
-        console.log(block);
+        console.warn(block);
 
         console.warn("found block");
 
