@@ -1,3 +1,5 @@
+# As of latest preview, Bedrock has added this functionality into the game. Deprecsting this lol.
+
 # Get Block
 
 Basically works like the middle mouse button, except us mobile users don't have a mouse to get the block.
